@@ -1,0 +1,13 @@
+RewriteEngine On
+
+# 1. Menghilangkan .html dari URL (misal: /layanan.html jadi /layanan)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+# 2. Redirect otomatis jika user masih mengetik .html secara manual
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s([^.]+)\.html [NC]
+RewriteRule ^ %1 [R=301,L]
+
+# 3. Mencegah akses ke folder direktori tanpa file index
+Options -Indexes
